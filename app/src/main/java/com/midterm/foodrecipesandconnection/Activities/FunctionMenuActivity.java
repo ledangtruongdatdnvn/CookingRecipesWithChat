@@ -1,5 +1,6 @@
 package com.midterm.foodrecipesandconnection.Activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
@@ -22,7 +23,8 @@ public class FunctionMenuActivity extends AppCompatActivity {
         cv_recipes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(FunctionMenuActivity.this, "Recipes Clicked", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(FunctionMenuActivity.this, "Recipes Clicked", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(FunctionMenuActivity.this, RandomRecipesActivity.class));
             }
         });
         cv_connection.setOnClickListener(new View.OnClickListener() {
