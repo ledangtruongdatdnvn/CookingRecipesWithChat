@@ -3,6 +3,7 @@
     package="com.midterm.foodrecipesandconnection">
 
     <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -11,7 +12,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.FoodRecipesAndConnection">
         <activity
-            android:name=".Activities.FunctionMenuActivity"
+            android:name=".Activities.activities.SignUpActivity"
+            android:exported="true"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".Activities.activities.SignInActivity"
             android:exported="true"
             android:windowSoftInputMode="adjustResize">
             <intent-filter>
@@ -20,6 +25,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".Activities.FunctionMenuActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
     </application>
 
 </manifest>
+
+
+
+
+
