@@ -12,22 +12,31 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.FoodRecipesAndConnection">
         <activity
-            android:name=".Activities.RandomRecipesActivity"
-            android:exported="false" />
+            android:name=".Activities.activities.SignUpActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".Activities.FunctionMenuActivity"
-            android:exported="true"
-            android:windowSoftInputMode="adjustResize">
-            <intent-filter>
+            android:name=".Activities.activities.SignInActivity"
+            android:name=".Activities.RandomRecipesActivity"
+            android:exported="true" >
+           <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
+        <activity
+            android:name=".Activities.FunctionMenuActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
     </application>
 
 </manifest>
+
+
+
+
+
