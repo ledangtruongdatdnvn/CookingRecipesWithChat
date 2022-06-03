@@ -1,11 +1,10 @@
-package com.midterm.foodrecipesandconnection.Activities.activities;
+package com.midterm.foodrecipesandconnection.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.midterm.foodrecipesandconnection.R;
 import com.midterm.foodrecipesandconnection.databinding.ActivitySignInBinding;
 
 public class SignInActivity extends AppCompatActivity {
