@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.FoodRecipesAndConnection">
         <activity
+            android:name=".Activities.ChatActivity"
+            android:exported="false" />
+        <activity
             android:name=".Activities.UsersActivity"
             android:exported="false" />
         <activity
