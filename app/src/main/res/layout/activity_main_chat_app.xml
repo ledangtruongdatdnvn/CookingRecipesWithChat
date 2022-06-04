@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:animateLayoutChanges="true"
     android:background="@color/primary"
+    android:layout_margin="5dp"
     tools:context=".Activities.MainChatAppActivity">
 
     <com.makeramen.roundedimageview.RoundedImageView

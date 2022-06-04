@@ -14,11 +14,9 @@ import androidx.cardview.widget.CardView;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.midterm.foodrecipesandconnection.R;
 import com.midterm.foodrecipesandconnection.Utilities.Constants;
 import com.midterm.foodrecipesandconnection.Utilities.PreferenceManager;
 import com.midterm.foodrecipesandconnection.databinding.ActivityFunctionMenuBinding;
-import com.midterm.foodrecipesandconnection.databinding.ActivityMainChatAppBinding;
 
 import java.util.HashMap;
 

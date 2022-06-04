@@ -8,7 +8,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -16,14 +19,22 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FieldValue;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.midterm.foodrecipesandconnection.Listeners.RecipeClickListener;
 import com.midterm.foodrecipesandconnection.Models.Recipe;
 import com.midterm.foodrecipesandconnection.Models.Recipes;
 import com.midterm.foodrecipesandconnection.R;
+import com.midterm.foodrecipesandconnection.Utilities.Constants;
+import com.midterm.foodrecipesandconnection.Utilities.PreferenceManager;
 import com.midterm.foodrecipesandconnection.View.RandomRecipeAdapter;
 import com.midterm.foodrecipesandconnection.ViewModels.RequestManager;
+import com.midterm.foodrecipesandconnection.databinding.ActivityFunctionMenuBinding;
+import com.midterm.foodrecipesandconnection.databinding.ActivityRandomRecipesBinding;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
@@ -42,10 +53,20 @@ public class RandomRecipesActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     List<Recipe> recipes;
 
+    private PreferenceManager preferenceManager;
+    private ActivityRandomRecipesBinding binding;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_random_recipes);
+//        setContentView(R.layout.activity_random_recipes);
+        binding = ActivityRandomRecipesBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
+        preferenceManager = new PreferenceManager(getApplicationContext());
+        loadUserDetails();
+        setListeners();
+
+
         dialog = new ProgressDialog(RandomRecipesActivity.this);
         dialog.setTitle("Loading Data ...");
 
@@ -138,5 +159,39 @@ public class RandomRecipesActivity extends AppCompatActivity {
         for (int i = 0; i < getResources().getStringArray(R.array.tags).length; i++) {
             tags.add(getResources().getStringArray(R.array.tags)[i]);
         }
+    }
+
+    // Sign out
+    private void setListeners() {
+        binding.imageSignOut.setOnClickListener(v -> signOut());
+    }
+
+    private void loadUserDetails() {
+        binding.textName.setText(preferenceManager.getString(Constants.KEY_NAME));
+        byte[] bytes = Base64.decode(preferenceManager.getString(Constants.KEY_IMAGE), Base64.DEFAULT);
+        Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+        binding.imageProfile.setImageBitmap(bitmap);
+    }
+
+    private void signOut() {
+        showToast("Sign out...");
+        FirebaseFirestore database = FirebaseFirestore.getInstance();
+        DocumentReference documentReference =
+                database.collection(Constants.KEY_COLLECTION_USERS).document(
+                        preferenceManager.getString(Constants.KEY_USER_ID)
+                );
+        HashMap<String, Object> updates = new HashMap<>();
+        updates.put(Constants.KEY_FCM_TOKEN, FieldValue.delete());
+        documentReference.update(updates)
+                .addOnSuccessListener(unused -> {
+                    preferenceManager.clear();
+                    startActivity(new Intent(getApplicationContext(), SignInActivity.class));
+                    finish();
+                })
+                .addOnFailureListener(e -> showToast("Unable to sign out"));
+    }
+
+    private void showToast(String message) {
+        Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
     }
 }
