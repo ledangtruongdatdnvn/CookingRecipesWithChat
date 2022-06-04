@@ -36,6 +36,7 @@
         <entry key="..\:/Users/DELL/AndroidStudioProjects/CookingRecipesWithChat/app/src/main/res/drawable/background_chat_input.xml" value="0.1" />
         <entry key="..\:/Users/DELL/AndroidStudioProjects/CookingRecipesWithChat/app/src/main/res/drawable/background_content_bottom.xml" value="0.1" />
         <entry key="..\:/Users/DELL/AndroidStudioProjects/CookingRecipesWithChat/app/src/main/res/drawable/background_content_top.xml" value="0.1" />
+        <entry key="..\:/Users/DELL/AndroidStudioProjects/CookingRecipesWithChat/app/src/main/res/drawable/background_received_message.xml" value="0.1" />
         <entry key="..\:/Users/DELL/AndroidStudioProjects/CookingRecipesWithChat/app/src/main/res/drawable/background_sent_message.xml" value="0.1" />
         <entry key="..\:/Users/DELL/AndroidStudioProjects/CookingRecipesWithChat/app/src/main/res/drawable/ic_add.xml" value="0.1" />
         <entry key="..\:/Users/DELL/AndroidStudioProjects/CookingRecipesWithChat/app/src/main/res/drawable/ic_back.xml" value="0.1" />
@@ -43,6 +44,7 @@
         <entry key="..\:/Users/DELL/AndroidStudioProjects/CookingRecipesWithChat/app/src/main/res/layout/activity_chat.xml" value="0.16983695652173914" />
         <entry key="..\:/Users/DELL/AndroidStudioProjects/CookingRecipesWithChat/app/src/main/res/layout/activity_main_chat_app.xml" value="0.16" />
         <entry key="..\:/Users/DELL/AndroidStudioProjects/CookingRecipesWithChat/app/src/main/res/layout/activity_users.xml" value="0.14855072463768115" />
+        <entry key="..\:/Users/DELL/AndroidStudioProjects/CookingRecipesWithChat/app/src/main/res/layout/item_container_received_message.xml" value="0.152" />
         <entry key="..\:/Users/DELL/AndroidStudioProjects/CookingRecipesWithChat/app/src/main/res/layout/item_container_sent_message.xml" value="0.1" />
         <entry key="..\:/Users/DELL/AndroidStudioProjects/CookingRecipesWithChat/app/src/main/res/layout/item_container_user.xml" value="0.1" />
       </map>
