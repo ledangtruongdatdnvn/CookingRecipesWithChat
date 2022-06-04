@@ -1,6 +1,7 @@
 package com.midterm.foodrecipesandconnection.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -37,6 +38,7 @@ public class RandomRecipesActivity extends AppCompatActivity {
     RandomRecipeAdapter randomRecipeAdapter;
     Spinner spinner;
     List<String> tags = new ArrayList<String>();
+    SearchView searchView;
     RecyclerView recyclerView;
     List<Recipe> recipes;
 
@@ -63,6 +65,22 @@ public class RandomRecipesActivity extends AppCompatActivity {
         arrayAdapter.setDropDownViewResource(R.layout.spinner_inner_text);
         spinner.setAdapter(arrayAdapter);
         spinner.setOnItemSelectedListener(spinnerSelectedListener);
+        searchView = findViewById(R.id.searchView_home);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                tags.clear();
+                tags.add(s);
+                getData(tags);
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+                return false;
+            }
+        });
+
 
     }
     private final AdapterView.OnItemSelectedListener spinnerSelectedListener = new AdapterView.OnItemSelectedListener() {
