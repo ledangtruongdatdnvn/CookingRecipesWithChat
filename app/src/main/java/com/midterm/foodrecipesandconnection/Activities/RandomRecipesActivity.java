@@ -4,10 +4,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -32,12 +35,13 @@ public class RandomRecipesActivity extends AppCompatActivity {
     ProgressDialog dialog;
     RequestManager APIService;
     RandomRecipeAdapter randomRecipeAdapter;
+    Spinner spinner;
     List<String> tags = new ArrayList<String>();
     RecyclerView recyclerView;
     List<Recipe> recipes;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_random_recipes);
         dialog = new ProgressDialog(RandomRecipesActivity.this);
@@ -51,9 +55,30 @@ public class RandomRecipesActivity extends AppCompatActivity {
         recipes = new ArrayList<>();
         randomRecipeAdapter = new RandomRecipeAdapter(this, recipeClickListener);
         randomRecipeAdapter.loadData((ArrayList<Recipe>) recipes);
+
         getData(tags);
 
+        spinner = findViewById(R.id.spinner_tags);
+        ArrayAdapter arrayAdapter = ArrayAdapter.createFromResource(this, R.array.tags, R.layout.spinner_text);
+        arrayAdapter.setDropDownViewResource(R.layout.spinner_inner_text);
+        spinner.setAdapter(arrayAdapter);
+        spinner.setOnItemSelectedListener(spinnerSelectedListener);
+
     }
+    private final AdapterView.OnItemSelectedListener spinnerSelectedListener = new AdapterView.OnItemSelectedListener() {
+        @SuppressLint("LongLogTag")
+        @Override
+        public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+            tags.clear();
+            tags.add(adapterView.getSelectedItem().toString());
+            getData(tags);
+        }
+
+        @Override
+        public void onNothingSelected(AdapterView<?> adapterView) {
+
+        }
+    };
 
     private void getData(List<String> tags) {
         dialog.show();
