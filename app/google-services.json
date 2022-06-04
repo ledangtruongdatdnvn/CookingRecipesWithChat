@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "159869067995",
+    "project_id": "chat-app-9c7c7",
+    "storage_bucket": "chat-app-9c7c7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:159869067995:android:fe3b758643d1d9f8aea2fe",
+        "android_client_info": {
+          "package_name": "com.midterm.foodrecipesandconnection"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "159869067995-94v7pgqa6h3lu0p4sqpa6baqcp32ng52.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDRG1vBx5Z7dW_Zo2hIMHu_xFcTeXC5L70"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "159869067995-94v7pgqa6h3lu0p4sqpa6baqcp32ng52.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
