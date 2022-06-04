@@ -43,7 +43,7 @@ public class RandomRecipesActivity extends AppCompatActivity {
     List<Recipe> recipes;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState){
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_random_recipes);
         dialog = new ProgressDialog(RandomRecipesActivity.this);
@@ -83,6 +83,7 @@ public class RandomRecipesActivity extends AppCompatActivity {
 
 
     }
+
     private final AdapterView.OnItemSelectedListener spinnerSelectedListener = new AdapterView.OnItemSelectedListener() {
         @SuppressLint("LongLogTag")
         @Override
@@ -124,10 +125,12 @@ public class RandomRecipesActivity extends AppCompatActivity {
                     }
                 });
     }
+
     private final RecipeClickListener recipeClickListener = new RecipeClickListener() {
         @Override
         public void onRecipeClicked(String id) {
-            Toast.makeText(RandomRecipesActivity.this,"Recipe Clicked",Toast.LENGTH_SHORT).show();
+//            Toast.makeText(RandomRecipesActivity.this,"Recipe Clicked",Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(RandomRecipesActivity.this, RecipeDetailsActivity.class));
         }
     };
 
