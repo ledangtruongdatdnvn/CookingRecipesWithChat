@@ -30,7 +30,8 @@ public class FunctionMenuActivity extends AppCompatActivity {
         cv_connection.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(FunctionMenuActivity.this, "Connection Clicked", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(FunctionMenuActivity.this, "Connection Clicked", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(FunctionMenuActivity.this, MainChatAppActivity.class));
             }
         });
     }
