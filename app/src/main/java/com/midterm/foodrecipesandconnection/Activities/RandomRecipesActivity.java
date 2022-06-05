@@ -151,7 +151,7 @@ public class RandomRecipesActivity extends AppCompatActivity {
         @Override
         public void onRecipeClicked(String id) {
 //            Toast.makeText(RandomRecipesActivity.this,"Recipe Clicked",Toast.LENGTH_SHORT).show();
-            startActivity(new Intent(RandomRecipesActivity.this, RecipeDetailsActivity.class));
+            startActivity(new Intent(RandomRecipesActivity.this, RecipeDetailsActivity.class).putExtra("id",id));
         }
     };
 
