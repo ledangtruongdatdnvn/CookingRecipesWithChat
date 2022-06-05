@@ -1,6 +1,7 @@
 package com.midterm.foodrecipesandconnection.ViewModels;
 
 import com.midterm.foodrecipesandconnection.Models.Recipes;
+import com.midterm.foodrecipesandconnection.Models.SimilarRecipe;
 
 import java.util.List;
 
@@ -13,6 +14,7 @@ public class RequestManager {
     private static final String BASE_URL = "https://api.spoonacular.com/";
     private static final String API_KEY = "2920d2dce28b44cbbdb63e6f5f12e932";
     private RandomRecipesAPI randomRecipesAPI;
+    private SimilarRecipesAPI similarRecipeAPI;
     public RequestManager() {
         randomRecipesAPI = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
@@ -20,10 +22,19 @@ public class RequestManager {
                 .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
                 .build()
                 .create(RandomRecipesAPI.class);
+        similarRecipeAPI = new Retrofit.Builder()
+                .baseUrl(BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
+                .build()
+                .create(SimilarRecipesAPI.class);
     }
 
     public Single<Recipes> getRandomRecipes(List<String> tags) {
         return randomRecipesAPI.getRandomRecipes(API_KEY,
                 "20", tags);
+    }
+    public Single<List<SimilarRecipe>> getSimilarRecipe(int id) {
+        return similarRecipeAPI.getSimilarRecipes(id, "20", API_KEY);
     }
 }
