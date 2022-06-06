@@ -16,10 +16,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.midterm.foodrecipesandconnection.Listeners.RecipeClickListener;
 
+import com.midterm.foodrecipesandconnection.Models.Instructions;
 import com.midterm.foodrecipesandconnection.Models.RecipeDetails;
 import com.midterm.foodrecipesandconnection.Models.SimilarRecipe;
 import com.midterm.foodrecipesandconnection.R;
 import com.midterm.foodrecipesandconnection.View.IngredientsAdapter;
+import com.midterm.foodrecipesandconnection.View.InstructionsAdapter;
 import com.midterm.foodrecipesandconnection.View.SimilarRecipeAdapter;
 import com.midterm.foodrecipesandconnection.ViewModels.RequestManager;
 import com.squareup.picasso.Picasso;
@@ -36,11 +38,12 @@ public class RecipeDetailsActivity extends AppCompatActivity {
     int id;
     TextView textView_meal_name, textView_meal_source, textView_meal_summary;
     ImageView imageView_meal_image;
-    RecyclerView recycler_meal_ingredients, recycler_meal_similar;
+    RecyclerView recycler_meal_ingredients, recycler_meal_similar,recycler_meal_instructions;
     RequestManager APIService;
     ProgressDialog dialog;
     IngredientsAdapter ingredientsAdapter;
     SimilarRecipeAdapter similarRecipeAdapter;
+    InstructionsAdapter instructionsAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +57,31 @@ public class RecipeDetailsActivity extends AppCompatActivity {
 
         getData(id);
         getSimilarRecipe(id);
+        getInstructions(id);
+
+    }
+
+    private void getInstructions(int id) {
+        dialog.show();
+        APIService = new RequestManager();
+        APIService.getInstructions(id)
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(new DisposableSingleObserver<List<Instructions>>() {
+                    @Override
+                    public void onSuccess(@NonNull List<Instructions> instructions) {
+                        dialog.dismiss();
+                        recycler_meal_instructions.setHasFixedSize(true);
+                        recycler_meal_instructions.setLayoutManager(new LinearLayoutManager(RecipeDetailsActivity.this,LinearLayoutManager.VERTICAL,false));
+                        instructionsAdapter = new InstructionsAdapter(RecipeDetailsActivity.this,instructions);
+                        recycler_meal_instructions.setAdapter(instructionsAdapter);
+                    }
+
+                    @Override
+                    public void onError(@NonNull Throwable e) {
+                        Toast.makeText(RecipeDetailsActivity.this,e.getMessage(),Toast.LENGTH_SHORT).show();
+                    }
+                });
 
     }
 
@@ -64,6 +92,7 @@ public class RecipeDetailsActivity extends AppCompatActivity {
         imageView_meal_image = findViewById(R.id.imageView_meal_image);
         recycler_meal_ingredients = findViewById(R.id.recycler_meal_ingredients);
         recycler_meal_similar = findViewById(R.id.recycler_meal_similar);
+        recycler_meal_instructions = findViewById(R.id.recycler_meal_instructions);
     }
 
     private void getSimilarRecipe(int id) {

@@ -1,5 +1,6 @@
 package com.midterm.foodrecipesandconnection.ViewModels;
 
+import com.midterm.foodrecipesandconnection.Models.Instructions;
 import com.midterm.foodrecipesandconnection.Models.RecipeDetails;
 import com.midterm.foodrecipesandconnection.Models.Recipes;
 import com.midterm.foodrecipesandconnection.Models.SimilarRecipe;
@@ -17,6 +18,7 @@ public class RequestManager {
     private RandomRecipesAPI randomRecipesAPI;
     private RecipeDetailsAPI recipeDetailsAPI;
     private SimilarRecipesAPI similarRecipeAPI;
+    private InstructionOfRecipeAPI instructionOfRecipeAPI;
     public RequestManager() {
         randomRecipesAPI = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
@@ -36,6 +38,12 @@ public class RequestManager {
                 .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
                 .build()
                 .create(SimilarRecipesAPI.class);
+        instructionOfRecipeAPI = new Retrofit.Builder()
+                .baseUrl(BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
+                .build()
+                .create(InstructionOfRecipeAPI.class);
     }
 
     public Single<Recipes> getRandomRecipes(List<String> tags) {
@@ -47,5 +55,8 @@ public class RequestManager {
     }
     public Single<List<SimilarRecipe>> getSimilarRecipe(int id) {
         return similarRecipeAPI.getSimilarRecipes(id, "20", API_KEY);
+    }
+    public Single<List<Instructions>> getInstructions(int id) {
+        return instructionOfRecipeAPI.getInstructions(id, API_KEY);
     }
 }
