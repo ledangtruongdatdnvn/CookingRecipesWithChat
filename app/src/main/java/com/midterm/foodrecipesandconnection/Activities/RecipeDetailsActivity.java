@@ -108,7 +108,6 @@ public class RecipeDetailsActivity extends AppCompatActivity {
                         textView_meal_source.setText(recipeDetails.getSourceName());
                         textView_meal_summary.setText(Html.fromHtml(recipeDetails.getSummary()));
                         Picasso.get().load(recipeDetails.getImage()).into(imageView_meal_image);
-
                     }
 
                     @Override
