@@ -1,4 +1,4 @@
-package com.midterm.cookingrecipe.View;
+package com.midterm.foodrecipesandconnection.View;
 
 
 import android.content.Context;
@@ -11,8 +11,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.midterm.cookingrecipe.Models.Step;
-import com.midterm.cookingrecipe.R;
+import com.midterm.foodrecipesandconnection.Models.Step;
+import com.midterm.foodrecipesandconnection.R;
 
 import java.util.List;
 

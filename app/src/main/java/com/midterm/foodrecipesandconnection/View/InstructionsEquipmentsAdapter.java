@@ -1,4 +1,4 @@
-package com.midterm.cookingrecipe.View;
+package com.midterm.foodrecipesandconnection.View;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -10,8 +10,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.midterm.cookingrecipe.Models.Equipment;
-import com.midterm.cookingrecipe.R;
+import com.midterm.foodrecipesandconnection.Models.Equipment;
+import com.midterm.foodrecipesandconnection.R;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
