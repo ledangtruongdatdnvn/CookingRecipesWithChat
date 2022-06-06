@@ -16,10 +16,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.midterm.foodrecipesandconnection.Listeners.RecipeClickListener;
 
+import com.midterm.foodrecipesandconnection.Models.RecipeDetails;
 import com.midterm.foodrecipesandconnection.Models.SimilarRecipe;
 import com.midterm.foodrecipesandconnection.R;
+import com.midterm.foodrecipesandconnection.View.IngredientsAdapter;
 import com.midterm.foodrecipesandconnection.View.SimilarRecipeAdapter;
 import com.midterm.foodrecipesandconnection.ViewModels.RequestManager;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -33,9 +36,10 @@ public class RecipeDetailsActivity extends AppCompatActivity {
     int id;
     TextView textView_meal_name, textView_meal_source, textView_meal_summary;
     ImageView imageView_meal_image;
-    RecyclerView recycler_meal_similar;
+    RecyclerView recycler_meal_ingredients, recycler_meal_similar;
     RequestManager APIService;
     ProgressDialog dialog;
+    IngredientsAdapter ingredientsAdapter;
     SimilarRecipeAdapter similarRecipeAdapter;
 
     @Override
@@ -47,6 +51,8 @@ public class RecipeDetailsActivity extends AppCompatActivity {
         dialog.setTitle("Loading Details...");
         findViews();
         id = Integer.parseInt(getIntent().getStringExtra("id"));
+
+        getData(id);
         getSimilarRecipe(id);
 
     }
@@ -56,6 +62,7 @@ public class RecipeDetailsActivity extends AppCompatActivity {
         textView_meal_source = findViewById(R.id.textView_meal_source);
         textView_meal_summary = findViewById(R.id.textView_meal_summary);
         imageView_meal_image = findViewById(R.id.imageView_meal_image);
+        recycler_meal_ingredients = findViewById(R.id.recycler_meal_ingredients);
         recycler_meal_similar = findViewById(R.id.recycler_meal_similar);
     }
 
@@ -90,4 +97,33 @@ public class RecipeDetailsActivity extends AppCompatActivity {
             startActivity(new Intent(RecipeDetailsActivity.this, RecipeDetailsActivity.class).putExtra("id", id));
         }
     };
+
+    private void getData(int id) {
+        dialog.show();
+        APIService = new RequestManager();
+        APIService.getRecipeDetails(id)
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(new DisposableSingleObserver<RecipeDetails>() {
+                    @Override
+                    public void onSuccess(@NonNull RecipeDetails recipeDetails) {
+                        dialog.dismiss();
+                        textView_meal_name.setText(recipeDetails.getTitle());
+                        textView_meal_source.setText(recipeDetails.getSourceName());
+                        textView_meal_summary.setText(Html.fromHtml(recipeDetails.getSummary()));
+                        Picasso.get().load(recipeDetails.getImage()).into(imageView_meal_image);
+                        recycler_meal_ingredients.setHasFixedSize(true);
+                        recycler_meal_ingredients.setLayoutManager(new LinearLayoutManager(RecipeDetailsActivity.this, LinearLayoutManager.HORIZONTAL, false));
+                        ingredientsAdapter = new IngredientsAdapter(RecipeDetailsActivity.this, recipeDetails.getExtendedIngredients());
+                        recycler_meal_ingredients.setAdapter(ingredientsAdapter);
+                        ingredientsAdapter.notifyDataSetChanged();
+                    }
+
+                    @Override
+                    public void onError(@NonNull Throwable e) {
+                        Log.e("Some Information", e.getMessage());
+                        Toast.makeText(RecipeDetailsActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
 }
