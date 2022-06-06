@@ -16,10 +16,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.midterm.foodrecipesandconnection.Listeners.RecipeClickListener;
 
+import com.midterm.foodrecipesandconnection.Models.RecipeDetails;
 import com.midterm.foodrecipesandconnection.Models.SimilarRecipe;
 import com.midterm.foodrecipesandconnection.R;
 import com.midterm.foodrecipesandconnection.View.SimilarRecipeAdapter;
 import com.midterm.foodrecipesandconnection.ViewModels.RequestManager;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -47,6 +49,8 @@ public class RecipeDetailsActivity extends AppCompatActivity {
         dialog.setTitle("Loading Details...");
         findViews();
         id = Integer.parseInt(getIntent().getStringExtra("id"));
+
+        getData(id);
         getSimilarRecipe(id);
 
     }
@@ -90,4 +94,28 @@ public class RecipeDetailsActivity extends AppCompatActivity {
             startActivity(new Intent(RecipeDetailsActivity.this, RecipeDetailsActivity.class).putExtra("id", id));
         }
     };
+    private void getData(int id) {
+        dialog.show();
+        APIService = new RequestManager();
+        APIService.getRecipeDetails(id)
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(new DisposableSingleObserver<RecipeDetails>() {
+                    @Override
+                    public void onSuccess(@NonNull RecipeDetails recipeDetails) {
+                        dialog.dismiss();
+                        textView_meal_name.setText(recipeDetails.getTitle());
+                        textView_meal_source.setText(recipeDetails.getSourceName());
+                        textView_meal_summary.setText(Html.fromHtml(recipeDetails.getSummary()));
+                        Picasso.get().load(recipeDetails.getImage()).into(imageView_meal_image);
+
+                    }
+
+                    @Override
+                    public void onError(@NonNull Throwable e) {
+                        Log.e("Some Information", e.getMessage());
+                        Toast.makeText(RecipeDetailsActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
 }
