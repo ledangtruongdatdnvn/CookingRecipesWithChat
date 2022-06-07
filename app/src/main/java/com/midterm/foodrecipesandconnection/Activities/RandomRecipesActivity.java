@@ -30,7 +30,6 @@ import com.midterm.foodrecipesandconnection.Utilities.Constants;
 import com.midterm.foodrecipesandconnection.Utilities.PreferenceManager;
 import com.midterm.foodrecipesandconnection.View.RandomRecipeAdapter;
 import com.midterm.foodrecipesandconnection.ViewModels.RequestManager;
-import com.midterm.foodrecipesandconnection.databinding.ActivityFunctionMenuBinding;
 import com.midterm.foodrecipesandconnection.databinding.ActivityRandomRecipesBinding;
 
 import java.util.ArrayList;
@@ -47,10 +46,7 @@ public class RandomRecipesActivity extends AppCompatActivity {
     ProgressDialog dialog;
     RequestManager APIService;
     RandomRecipeAdapter randomRecipeAdapter;
-    Spinner spinner;
     List<String> tags = new ArrayList<String>();
-    SearchView searchView;
-    RecyclerView recyclerView;
     List<Recipe> recipes;
 
     private PreferenceManager preferenceManager;
@@ -59,35 +55,31 @@ public class RandomRecipesActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_random_recipes);
         binding = ActivityRandomRecipesBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
         preferenceManager = new PreferenceManager(getApplicationContext());
         loadUserDetails();
         setListeners();
-
 
         dialog = new ProgressDialog(RandomRecipesActivity.this);
         dialog.setTitle("Loading Data ...");
 
         setTags();
 
-        recyclerView = (RecyclerView) findViewById(R.id.recycler_random);
-        recyclerView.setLayoutManager(new LinearLayoutManager(RandomRecipesActivity.this));
+        binding.recyclerRandom.setLayoutManager(new LinearLayoutManager(RandomRecipesActivity.this));
 
         recipes = new ArrayList<>();
         randomRecipeAdapter = new RandomRecipeAdapter(this, recipeClickListener);
         randomRecipeAdapter.loadData((ArrayList<Recipe>) recipes);
-
         getData(tags);
 
-        spinner = findViewById(R.id.spinner_tags);
+
         ArrayAdapter arrayAdapter = ArrayAdapter.createFromResource(this, R.array.tags, R.layout.spinner_text);
         arrayAdapter.setDropDownViewResource(R.layout.spinner_inner_text);
-        spinner.setAdapter(arrayAdapter);
-        spinner.setOnItemSelectedListener(spinnerSelectedListener);
-        searchView = findViewById(R.id.searchView_home);
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+        binding.spinnerTags.setAdapter(arrayAdapter);
+        binding.spinnerTags.setOnItemSelectedListener(spinnerSelectedListener);
+        binding.searchViewHome.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {
                 tags.clear();
@@ -97,7 +89,7 @@ public class RandomRecipesActivity extends AppCompatActivity {
             }
 
             @Override
-            public boolean onQueryTextChange(String s) {
+            public boolean onQueryTextChange(String newText) {
                 return false;
             }
         });
@@ -134,7 +126,7 @@ public class RandomRecipesActivity extends AppCompatActivity {
                             recipes.add(r.getRecipes().get(i));
                         }
                         randomRecipeAdapter.loadData((ArrayList<Recipe>) recipes);
-                        recyclerView.setAdapter(randomRecipeAdapter);
+                        binding.recyclerRandom.setAdapter(randomRecipeAdapter);
                         randomRecipeAdapter.notifyDataSetChanged();
                         dialog.dismiss();
                     }
@@ -150,7 +142,6 @@ public class RandomRecipesActivity extends AppCompatActivity {
     private final RecipeClickListener recipeClickListener = new RecipeClickListener() {
         @Override
         public void onRecipeClicked(String id) {
-//            Toast.makeText(RandomRecipesActivity.this,"Recipe Clicked",Toast.LENGTH_SHORT).show();
             startActivity(new Intent(RandomRecipesActivity.this, RecipeDetailsActivity.class).putExtra("id", id));
         }
     };
