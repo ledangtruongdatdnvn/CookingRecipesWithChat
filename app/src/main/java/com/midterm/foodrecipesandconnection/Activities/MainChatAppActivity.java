@@ -1,7 +1,5 @@
 package com.midterm.foodrecipesandconnection.Activities;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -30,7 +28,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
-public class MainChatAppActivity extends AppCompatActivity implements ConversionListener {
+public class MainChatAppActivity extends BaseActivity implements ConversionListener {
 
     private ActivityMainChatAppBinding binding;
     private PreferenceManager preferenceManager;

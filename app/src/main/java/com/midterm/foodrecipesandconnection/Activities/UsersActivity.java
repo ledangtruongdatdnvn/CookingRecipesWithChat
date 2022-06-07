@@ -1,7 +1,5 @@
 package com.midterm.foodrecipesandconnection.Activities;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -18,7 +16,7 @@ import com.midterm.foodrecipesandconnection.databinding.ActivityUsersBinding;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UsersActivity extends AppCompatActivity implements UserListener {
+public class UsersActivity extends BaseActivity implements UserListener {
 
     private ActivityUsersBinding binding;
     private PreferenceManager preferenceManager;
