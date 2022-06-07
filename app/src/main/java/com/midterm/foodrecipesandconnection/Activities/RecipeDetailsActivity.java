@@ -1,29 +1,23 @@
 package com.midterm.foodrecipesandconnection.Activities;
 
-
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Html;
-import android.util.Log;
-import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.midterm.foodrecipesandconnection.Listeners.RecipeClickListener;
-
 import com.midterm.foodrecipesandconnection.Models.Instructions;
 import com.midterm.foodrecipesandconnection.Models.RecipeDetails;
 import com.midterm.foodrecipesandconnection.Models.SimilarRecipe;
-import com.midterm.foodrecipesandconnection.R;
 import com.midterm.foodrecipesandconnection.View.IngredientsAdapter;
 import com.midterm.foodrecipesandconnection.View.InstructionsAdapter;
 import com.midterm.foodrecipesandconnection.View.SimilarRecipeAdapter;
 import com.midterm.foodrecipesandconnection.ViewModels.RequestManager;
+import com.midterm.foodrecipesandconnection.databinding.ActivityRecipeDetailsBinding;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -36,23 +30,22 @@ import io.reactivex.rxjava3.schedulers.Schedulers;
 public class RecipeDetailsActivity extends AppCompatActivity {
 
     int id;
-    TextView textView_meal_name, textView_meal_source, textView_meal_summary;
-    ImageView imageView_meal_image;
-    RecyclerView recycler_meal_ingredients, recycler_meal_similar, recycler_meal_instructions;
     RequestManager APIService;
     ProgressDialog dialog;
     IngredientsAdapter ingredientsAdapter;
     SimilarRecipeAdapter similarRecipeAdapter;
     InstructionsAdapter instructionsAdapter;
 
+    private ActivityRecipeDetailsBinding binding;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_recipe_details);
+        binding = ActivityRecipeDetailsBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
         dialog = new ProgressDialog(this);
         dialog.setTitle("Loading Details...");
-        findViews();
         id = Integer.parseInt(getIntent().getStringExtra("id"));
 
         getData(id);
@@ -71,10 +64,11 @@ public class RecipeDetailsActivity extends AppCompatActivity {
                     @Override
                     public void onSuccess(@NonNull List<Instructions> instructions) {
                         dialog.dismiss();
-                        recycler_meal_instructions.setHasFixedSize(true);
-                        recycler_meal_instructions.setLayoutManager(new LinearLayoutManager(RecipeDetailsActivity.this, LinearLayoutManager.VERTICAL, false));
+                        binding.recyclerMealInstructions.setHasFixedSize(true);
+                        binding.recyclerMealInstructions.setLayoutManager(new LinearLayoutManager(RecipeDetailsActivity.this, LinearLayoutManager.VERTICAL, false));
                         instructionsAdapter = new InstructionsAdapter(RecipeDetailsActivity.this, instructions);
-                        recycler_meal_instructions.setAdapter(instructionsAdapter);
+                        binding.recyclerMealInstructions.setAdapter(instructionsAdapter);
+                        instructionsAdapter.notifyDataSetChanged();
                     }
 
                     @Override
@@ -83,16 +77,6 @@ public class RecipeDetailsActivity extends AppCompatActivity {
                     }
                 });
 
-    }
-
-    private void findViews() {
-        textView_meal_name = findViewById(R.id.textView_meal_name);
-        textView_meal_source = findViewById(R.id.textView_meal_source);
-        textView_meal_summary = findViewById(R.id.textView_meal_summary);
-        imageView_meal_image = findViewById(R.id.imageView_meal_image);
-        recycler_meal_ingredients = findViewById(R.id.recycler_meal_ingredients);
-        recycler_meal_similar = findViewById(R.id.recycler_meal_similar);
-        recycler_meal_instructions = findViewById(R.id.recycler_meal_instructions);
     }
 
     private void getSimilarRecipe(int id) {
@@ -105,10 +89,10 @@ public class RecipeDetailsActivity extends AppCompatActivity {
                     @Override
                     public void onSuccess(@NonNull List<SimilarRecipe> similarRecipes) {
                         dialog.dismiss();
-                        recycler_meal_similar.setHasFixedSize(true);
-                        recycler_meal_similar.setLayoutManager(new LinearLayoutManager(RecipeDetailsActivity.this, LinearLayoutManager.HORIZONTAL, false));
+                        binding.recyclerMealSimilar.setHasFixedSize(true);
+                        binding.recyclerMealSimilar.setLayoutManager(new LinearLayoutManager(RecipeDetailsActivity.this, LinearLayoutManager.HORIZONTAL, false));
                         similarRecipeAdapter = new SimilarRecipeAdapter(RecipeDetailsActivity.this, similarRecipes, recipeClickListener);
-                        recycler_meal_similar.setAdapter(similarRecipeAdapter);
+                        binding.recyclerMealSimilar.setAdapter(similarRecipeAdapter);
                         similarRecipeAdapter.notifyDataSetChanged();
                     }
 
@@ -136,14 +120,14 @@ public class RecipeDetailsActivity extends AppCompatActivity {
                     @Override
                     public void onSuccess(@NonNull RecipeDetails recipeDetails) {
                         dialog.dismiss();
-                        textView_meal_name.setText(recipeDetails.getTitle());
-                        textView_meal_source.setText(recipeDetails.getSourceName());
-                        textView_meal_summary.setText(Html.fromHtml(recipeDetails.getSummary()));
-                        Picasso.get().load(recipeDetails.getImage()).into(imageView_meal_image);
-                        recycler_meal_ingredients.setHasFixedSize(true);
-                        recycler_meal_ingredients.setLayoutManager(new LinearLayoutManager(RecipeDetailsActivity.this, LinearLayoutManager.HORIZONTAL, false));
+                        binding.textViewMealName.setText(recipeDetails.getTitle());
+                        binding.textViewMealSource.setText(recipeDetails.getSourceName());
+                        binding.textViewMealSummary.setText(Html.fromHtml(recipeDetails.getSummary()));
+                        Picasso.get().load(recipeDetails.getImage()).into(binding.imageViewMealImage);
+                        binding.recyclerMealIngredients.setHasFixedSize(true);
+                        binding.recyclerMealIngredients.setLayoutManager(new LinearLayoutManager(RecipeDetailsActivity.this, LinearLayoutManager.HORIZONTAL, false));
                         ingredientsAdapter = new IngredientsAdapter(RecipeDetailsActivity.this, recipeDetails.getExtendedIngredients());
-                        recycler_meal_ingredients.setAdapter(ingredientsAdapter);
+                        binding.recyclerMealIngredients.setAdapter(ingredientsAdapter);
                         ingredientsAdapter.notifyDataSetChanged();
                     }
 
