@@ -13,7 +13,8 @@
         android:theme="@style/Theme.FoodRecipesAndConnection">
         <activity
             android:name=".Activities.ChatActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".Activities.UsersActivity"
             android:exported="false" />

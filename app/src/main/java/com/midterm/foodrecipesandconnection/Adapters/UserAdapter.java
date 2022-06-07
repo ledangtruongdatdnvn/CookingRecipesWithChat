@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.midterm.foodrecipesandconnection.Listeners.UserListener;
 import com.midterm.foodrecipesandconnection.Models.User;
 import com.midterm.foodrecipesandconnection.databinding.ItemContainerUserBinding;
 
@@ -17,10 +18,13 @@ import java.util.List;
 public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder> {
 
     private final List<User> users;
+    private final UserListener userListener;
 
-    public UserAdapter(List<User> users) {
+    public UserAdapter(List<User> users, UserListener userListener) {
         this.users = users;
+        this.userListener = userListener;
     }
+
 
     @NonNull
     @Override
@@ -56,6 +60,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
             binding.textName.setText(user.name);
             binding.textEmail.setText(user.email);
             binding.imageProfile.setImageBitmap(getUserImage(user.image));
+            binding.getRoot().setOnClickListener(v -> userListener.onUserClicked(user));
         }
     }
 
