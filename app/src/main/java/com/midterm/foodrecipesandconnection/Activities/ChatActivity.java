@@ -13,7 +13,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
-import com.midterm.foodrecipesandconnection.Adapters.ChatAdapter;
+import com.midterm.foodrecipesandconnection.View.ChatAdapter;
 import com.midterm.foodrecipesandconnection.Models.ChatMessage;
 import com.midterm.foodrecipesandconnection.Models.User;
 import com.midterm.foodrecipesandconnection.Utilities.Constants;
@@ -72,7 +72,7 @@ public class ChatActivity extends BaseActivity {
         database.collection(Constants.KEY_COLLECTION_CHAT).add(message);
         if (conversionId != null) {
             updateConversion(binding.inputMessage.getText().toString());
-        }else {
+        } else {
             HashMap<String, Object> conversion = new HashMap<>();
             conversion.put(Constants.KEY_SENDER_ID, preferenceManager.getString(Constants.KEY_USER_ID));
             conversion.put(Constants.KEY_SENDER_NAME, preferenceManager.getString(Constants.KEY_NAME));
@@ -104,7 +104,7 @@ public class ChatActivity extends BaseActivity {
             }
             if (isReceiverAvailable) {
                 binding.textAvailability.setVisibility(View.VISIBLE);
-            }else {
+            } else {
                 binding.textAvailability.setVisibility(View.GONE);
             }
         });
@@ -141,7 +141,7 @@ public class ChatActivity extends BaseActivity {
             Collections.sort(chatMessages, (obj1, obj2) -> obj1.dateObject.compareTo(obj2.dateObject));
             if (count == 0) {
                 chatAdapter.notifyDataSetChanged();
-            }else {
+            } else {
                 chatAdapter.notifyItemRangeInserted(chatMessages.size(), chatMessages.size());
                 binding.chatRecyclerView.smoothScrollToPosition(chatMessages.size() - 1);
             }

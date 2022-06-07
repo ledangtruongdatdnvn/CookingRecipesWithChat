@@ -6,7 +6,7 @@ import android.view.View;
 
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.midterm.foodrecipesandconnection.Adapters.UserAdapter;
+import com.midterm.foodrecipesandconnection.View.UserAdapter;
 import com.midterm.foodrecipesandconnection.Listeners.UserListener;
 import com.midterm.foodrecipesandconnection.Models.User;
 import com.midterm.foodrecipesandconnection.Utilities.Constants;

@@ -1,4 +1,4 @@
-package com.midterm.foodrecipesandconnection.Adapters;
+package com.midterm.foodrecipesandconnection.View;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
