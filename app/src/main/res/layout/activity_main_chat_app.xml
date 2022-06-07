@@ -70,7 +70,7 @@
             android:clipToPadding="false"
             android:orientation="vertical"
             android:overScrollMode="never"
-            android:padding="@dimen/_20sdp"
+            android:padding="10dp"
             android:visibility="gone"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
