@@ -15,6 +15,7 @@
     <string name="sign_up">Sign Up</string>
     <string name="selector_user">Selector User</string>
     <string name="type_a_message">Type a message</string>
+    <string name="online">Online</string>
 
     <string-array name="tags">
         <item>main course</item>
