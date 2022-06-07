@@ -60,6 +60,7 @@ public class MainChatAppActivity extends BaseActivity implements ConversionListe
         binding.imageSignOut.setOnClickListener(v -> signOut());
         binding.fabNewChat.setOnClickListener(v ->
                 startActivity(new Intent(getApplicationContext(), UsersActivity.class)));
+        binding.imageBack.setOnClickListener(v -> onBackPressed());
     }
 
     private void loadUserDetails() {

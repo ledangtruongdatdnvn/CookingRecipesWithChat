@@ -52,6 +52,8 @@ public class RecipeDetailsActivity extends AppCompatActivity {
         getSimilarRecipe(id);
         getInstructions(id);
 
+        binding.imageBack.setOnClickListener(v -> onBackPressed());
+
     }
 
     private void getInstructions(int id) {

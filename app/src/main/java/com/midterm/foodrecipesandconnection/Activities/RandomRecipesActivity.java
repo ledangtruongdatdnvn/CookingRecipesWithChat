@@ -94,7 +94,7 @@ public class RandomRecipesActivity extends AppCompatActivity {
             }
         });
 
-
+        binding.imageBack.setOnClickListener(v -> onBackPressed());
     }
 
     private final AdapterView.OnItemSelectedListener spinnerSelectedListener = new AdapterView.OnItemSelectedListener() {
