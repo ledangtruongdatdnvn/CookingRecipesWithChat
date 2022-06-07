@@ -13,7 +13,7 @@
     <string name="name">Name</string>
     <string name="confirm_password">Confirm Password</string>
     <string name="sign_up">Sign Up</string>
-    <string name="selector_user">Selector User</string>
+    <string name="selector_user">Users</string>
     <string name="type_a_message">Type a message</string>
     <string name="online">Online</string>
 
