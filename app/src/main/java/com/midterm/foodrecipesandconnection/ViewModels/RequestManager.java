@@ -19,6 +19,7 @@ public class RequestManager {
     private RecipeDetailsAPI recipeDetailsAPI;
     private SimilarRecipesAPI similarRecipeAPI;
     private InstructionOfRecipeAPI instructionOfRecipeAPI;
+
     public RequestManager() {
         randomRecipesAPI = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
@@ -50,12 +51,15 @@ public class RequestManager {
         return randomRecipesAPI.getRandomRecipes(API_KEY,
                 "20", tags);
     }
+
     public Single<RecipeDetails> getRecipeDetails(int id) {
         return recipeDetailsAPI.getRecipeDetails(id, API_KEY);
     }
+
     public Single<List<SimilarRecipe>> getSimilarRecipe(int id) {
         return similarRecipeAPI.getSimilarRecipes(id, "20", API_KEY);
     }
+
     public Single<List<Instructions>> getInstructions(int id) {
         return instructionOfRecipeAPI.getInstructions(id, API_KEY);
     }

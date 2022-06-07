@@ -22,13 +22,12 @@ import java.util.HashMap;
 
 
 public class FunctionMenuActivity extends AppCompatActivity {
-    CardView cv_recipes, cv_connection;
     private PreferenceManager preferenceManager;
     private ActivityFunctionMenuBinding binding;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_function_menu);
         binding = ActivityFunctionMenuBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         preferenceManager = new PreferenceManager(getApplicationContext());
@@ -44,34 +43,21 @@ public class FunctionMenuActivity extends AppCompatActivity {
                 startActivity(new Intent(FunctionMenuActivity.this, RandomRecipesActivity.class));
             }
         });
-//        cv_recipes = findViewById(R.id.cv_recipes);
-//        cv_connection = findViewById(R.id.cv_connection);
-//        cv_recipes.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-////                Toast.makeText(FunctionMenuActivity.this, "Recipes Clicked", Toast.LENGTH_SHORT).show();
-//                startActivity(new Intent(FunctionMenuActivity.this, RandomRecipesActivity.class));
-//            }
-//        });
-//        cv_connection.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-////                Toast.makeText(FunctionMenuActivity.this, "Connection Clicked", Toast.LENGTH_SHORT).show();
-//                startActivity(new Intent(FunctionMenuActivity.this, MainChatAppActivity.class));
-//            }
-//        });
         loadUserDetails();
         setListeners();
     }
+
     private void setListeners() {
         binding.imageSignOut.setOnClickListener(v -> signOut());
     }
+
     private void loadUserDetails() {
         binding.textName.setText(preferenceManager.getString(Constants.KEY_NAME));
         byte[] bytes = Base64.decode(preferenceManager.getString(Constants.KEY_IMAGE), Base64.DEFAULT);
         Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
         binding.imageProfile.setImageBitmap(bitmap);
     }
+
     private void signOut() {
         showToast("Sign out...");
         FirebaseFirestore database = FirebaseFirestore.getInstance();
@@ -89,7 +75,8 @@ public class FunctionMenuActivity extends AppCompatActivity {
                 })
                 .addOnFailureListener(e -> showToast("Unable to sign out"));
     }
+
     private void showToast(String message) {
-        Toast.makeText(getApplicationContext(), message , Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
     }
 }

@@ -38,7 +38,7 @@ public class RecipeDetailsActivity extends AppCompatActivity {
     int id;
     TextView textView_meal_name, textView_meal_source, textView_meal_summary;
     ImageView imageView_meal_image;
-    RecyclerView recycler_meal_ingredients, recycler_meal_similar,recycler_meal_instructions;
+    RecyclerView recycler_meal_ingredients, recycler_meal_similar, recycler_meal_instructions;
     RequestManager APIService;
     ProgressDialog dialog;
     IngredientsAdapter ingredientsAdapter;
@@ -72,14 +72,14 @@ public class RecipeDetailsActivity extends AppCompatActivity {
                     public void onSuccess(@NonNull List<Instructions> instructions) {
                         dialog.dismiss();
                         recycler_meal_instructions.setHasFixedSize(true);
-                        recycler_meal_instructions.setLayoutManager(new LinearLayoutManager(RecipeDetailsActivity.this,LinearLayoutManager.VERTICAL,false));
-                        instructionsAdapter = new InstructionsAdapter(RecipeDetailsActivity.this,instructions);
+                        recycler_meal_instructions.setLayoutManager(new LinearLayoutManager(RecipeDetailsActivity.this, LinearLayoutManager.VERTICAL, false));
+                        instructionsAdapter = new InstructionsAdapter(RecipeDetailsActivity.this, instructions);
                         recycler_meal_instructions.setAdapter(instructionsAdapter);
                     }
 
                     @Override
                     public void onError(@NonNull Throwable e) {
-                        Toast.makeText(RecipeDetailsActivity.this,e.getMessage(),Toast.LENGTH_SHORT).show();
+                        Toast.makeText(RecipeDetailsActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
 
@@ -122,7 +122,6 @@ public class RecipeDetailsActivity extends AppCompatActivity {
     private final RecipeClickListener recipeClickListener = new RecipeClickListener() {
         @Override
         public void onRecipeClicked(String id) {
-//            Toast.makeText(RecipeDetailsActivity.this,id,Toast.LENGTH_SHORT).show();
             startActivity(new Intent(RecipeDetailsActivity.this, RecipeDetailsActivity.class).putExtra("id", id));
         }
     };
@@ -150,7 +149,6 @@ public class RecipeDetailsActivity extends AppCompatActivity {
 
                     @Override
                     public void onError(@NonNull Throwable e) {
-                        Log.e("Some Information", e.getMessage());
                         Toast.makeText(RecipeDetailsActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });

@@ -43,7 +43,7 @@ public class UsersActivity extends AppCompatActivity {
                 .addOnCompleteListener(task -> {
                     loading(false);
                     String currentUserId = preferenceManager.getString(Constants.KEY_USER_ID);
-                    if(task.isSuccessful() && task.getResult() != null) {
+                    if (task.isSuccessful() && task.getResult() != null) {
                         List<User> users = new ArrayList<>();
                         for (QueryDocumentSnapshot queryDocumentSnapshot : task.getResult()) {
                             if (currentUserId.equals(queryDocumentSnapshot.getId())) {
@@ -60,10 +60,10 @@ public class UsersActivity extends AppCompatActivity {
                             UserAdapter userAdapter = new UserAdapter(users);
                             binding.usersRecyclerView.setAdapter(userAdapter);
                             binding.usersRecyclerView.setVisibility(View.VISIBLE);
-                        }else {
+                        } else {
                             showErrorMessage();
                         }
-                    }else {
+                    } else {
                         showErrorMessage();
                     }
                 });
@@ -75,9 +75,9 @@ public class UsersActivity extends AppCompatActivity {
     }
 
     private void loading(Boolean isLoading) {
-        if(isLoading) {
+        if (isLoading) {
             binding.progressBar.setVisibility(View.VISIBLE);
-        }else {
+        } else {
             binding.progressBar.setVisibility(View.INVISIBLE);
         }
     }

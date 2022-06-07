@@ -24,7 +24,7 @@ public class SignInActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         preferenceManager = new PreferenceManager(getApplicationContext());
-        if(preferenceManager.getBoolean(Constants.KEY_IS_SIGNED_IN)) {
+        if (preferenceManager.getBoolean(Constants.KEY_IS_SIGNED_IN)) {
             Intent intent = new Intent(getApplicationContext(), MainChatAppActivity.class);
             startActivity(intent);
             finish();
@@ -38,13 +38,13 @@ public class SignInActivity extends AppCompatActivity {
         binding.textCreateNewAccount.setOnClickListener(v ->
                 startActivity(new Intent(getApplicationContext(), SignUpActivity.class)));
         binding.buttonSignIn.setOnClickListener(v -> {
-            if(isValidSignInDetails()) {
+            if (isValidSignInDetails()) {
                 signIn();
             }
         });
     }
 
-    private void  signIn() {
+    private void signIn() {
         loading(true);
         FirebaseFirestore database = FirebaseFirestore.getInstance();
         database.collection(Constants.KEY_COLLECTION_USERS)
@@ -62,7 +62,7 @@ public class SignInActivity extends AppCompatActivity {
                         Intent intent = new Intent(getApplicationContext(), FunctionMenuActivity.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(intent);
-                    }else {
+                    } else {
                         loading(false);
                         showToast("Wrong email or password!");
                     }
@@ -70,10 +70,10 @@ public class SignInActivity extends AppCompatActivity {
     }
 
     private void loading(Boolean isLoading) {
-        if(isLoading) {
+        if (isLoading) {
             binding.buttonSignIn.setVisibility(View.INVISIBLE);
             binding.progressBar.setVisibility(View.VISIBLE);
-        }else {
+        } else {
             binding.progressBar.setVisibility(View.INVISIBLE);
             binding.buttonSignIn.setVisibility(View.VISIBLE);
         }
@@ -83,17 +83,17 @@ public class SignInActivity extends AppCompatActivity {
         Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
     }
 
-    private  Boolean isValidSignInDetails() {
+    private Boolean isValidSignInDetails() {
         if (binding.inputEmail.getText().toString().trim().isEmpty()) {
             showToast("Enter email");
-            return  false;
-        }else if (!Patterns.EMAIL_ADDRESS.matcher(binding.inputEmail.getText().toString()).matches()) {
+            return false;
+        } else if (!Patterns.EMAIL_ADDRESS.matcher(binding.inputEmail.getText().toString()).matches()) {
             showToast("Enter valid email");
             return false;
-        }else if(binding.inputPassword.getText().toString().trim().isEmpty()) {
+        } else if (binding.inputPassword.getText().toString().trim().isEmpty()) {
             showToast("Enter password");
             return false;
-        }else {
+        } else {
             return true;
         }
     }

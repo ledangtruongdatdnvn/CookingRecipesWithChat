@@ -14,7 +14,7 @@ import com.midterm.foodrecipesandconnection.databinding.ItemContainerUserBinding
 
 import java.util.List;
 
-public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder>{
+public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder> {
 
     private final List<User> users;
 
@@ -58,7 +58,6 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
             binding.imageProfile.setImageBitmap(getUserImage(user.image));
         }
     }
-
 
 
     private Bitmap getUserImage(String encodedImage) {
