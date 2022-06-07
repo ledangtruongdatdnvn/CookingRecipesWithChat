@@ -13,16 +13,23 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.messaging.FirebaseMessaging;
+import com.midterm.foodrecipesandconnection.Adapters.RecentConversationsAdapter;
+import com.midterm.foodrecipesandconnection.Models.ChatMessage;
 import com.midterm.foodrecipesandconnection.Utilities.Constants;
 import com.midterm.foodrecipesandconnection.Utilities.PreferenceManager;
 import com.midterm.foodrecipesandconnection.databinding.ActivityMainChatAppBinding;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class MainChatAppActivity extends AppCompatActivity {
 
     private ActivityMainChatAppBinding binding;
     private PreferenceManager preferenceManager;
+    private List<ChatMessage> conversations;
+    private RecentConversationsAdapter conversationsAdapter;
+    private FirebaseFirestore database;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,9 +37,17 @@ public class MainChatAppActivity extends AppCompatActivity {
         binding = ActivityMainChatAppBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         preferenceManager = new PreferenceManager(getApplicationContext());
+        init();
         loadUserDetails();
         getToken();
         setListeners();
+    }
+
+    private void init() {
+        conversations = new ArrayList<>();
+        conversationsAdapter = new RecentConversationsAdapter(conversations);
+        binding.conversationsRecyclerView.setAdapter(conversationsAdapter);
+        database = FirebaseFirestore.getInstance();
     }
 
     private void setListeners() {
