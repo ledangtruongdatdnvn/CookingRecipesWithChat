@@ -6,9 +6,12 @@
         <entry key="..\:/Users/Admin/AndroidStudioProjects/CookingRecipesWithChat/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1315" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/CookingRecipesWithChat/app/src/main/res/drawable-v24/ic_search.xml" value="0.1315" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/CookingRecipesWithChat/app/src/main/res/drawable/background_content_bottom.xml" value="0.1635" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/CookingRecipesWithChat/app/src/main/res/drawable/background_content_top.xml" value="0.1535" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/CookingRecipesWithChat/app/src/main/res/drawable/background_icon.xml" value="0.1" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/CookingRecipesWithChat/app/src/main/res/drawable/background_image.xml" value="0.1" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/CookingRecipesWithChat/app/src/main/res/drawable/background_input.xml" value="0.1" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/CookingRecipesWithChat/app/src/main/res/drawable/background_received_message.xml" value="0.1535" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/CookingRecipesWithChat/app/src/main/res/drawable/background_sent_message.xml" value="0.1535" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/CookingRecipesWithChat/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1315" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/CookingRecipesWithChat/app/src/main/res/drawable/ic_likes.xml" value="0.22" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/CookingRecipesWithChat/app/src/main/res/drawable/ic_logo_background.xml" value="0.1555" />
@@ -25,7 +28,7 @@
         <entry key="..\:/Users/Admin/AndroidStudioProjects/CookingRecipesWithChat/app/src/main/res/layout/activity_sign_in.xml" value="0.264" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/CookingRecipesWithChat/app/src/main/res/layout/activity_sign_up.xml" value="0.264" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/CookingRecipesWithChat/app/src/main/res/layout/activity_users.xml" value="0.25" />
-        <entry key="..\:/Users/Admin/AndroidStudioProjects/CookingRecipesWithChat/app/src/main/res/layout/item_container_received_message.xml" value="0.25" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/CookingRecipesWithChat/app/src/main/res/layout/item_container_received_message.xml" value="0.536" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/CookingRecipesWithChat/app/src/main/res/layout/item_container_recent_conversion.xml" value="0.264" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/CookingRecipesWithChat/app/src/main/res/layout/item_container_sent_message.xml" value="0.25" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/CookingRecipesWithChat/app/src/main/res/layout/item_container_user.xml" value="0.4" />
