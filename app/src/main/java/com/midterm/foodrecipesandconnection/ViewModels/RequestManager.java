@@ -14,7 +14,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RequestManager {
     private static final String BASE_URL = "https://api.spoonacular.com/";
-    private static final String API_KEY = "2920d2dce28b44cbbdb63e6f5f12e932";
+    private static final String API_KEY = "f3a9208c655e4b13aafe69cd1d51758d";
     private RandomRecipesAPI randomRecipesAPI;
     private RecipeDetailsAPI recipeDetailsAPI;
     private SimilarRecipesAPI similarRecipeAPI;

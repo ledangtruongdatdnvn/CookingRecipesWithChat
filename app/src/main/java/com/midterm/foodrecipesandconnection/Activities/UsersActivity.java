@@ -3,6 +3,9 @@ package com.midterm.foodrecipesandconnection.Activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
+
+import androidx.appcompat.widget.SearchView;
 
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -20,6 +23,8 @@ public class UsersActivity extends BaseActivity implements UserListener {
 
     private ActivityUsersBinding binding;
     private PreferenceManager preferenceManager;
+    List<User> users;
+    User userFoundedByEmail;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +34,50 @@ public class UsersActivity extends BaseActivity implements UserListener {
         preferenceManager = new PreferenceManager(getApplicationContext());
         setListeners();
         getUsers();
+        binding.searchViewEmail.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String email) {
+                boolean isFound = false;
+                for (int i = 0; i < users.size(); i++) {
+                    if (users.get(i).email.equals(email)) {
+                        userFoundedByEmail = new User();
+                        userFoundedByEmail.name = users.get(i).name;
+                        userFoundedByEmail.email = users.get(i).email;
+                        userFoundedByEmail.image = users.get(i).image;
+                        userFoundedByEmail.token = users.get(i).token;
+                        userFoundedByEmail.id = users.get(i).id;
+                        users.clear();
+                        users.add(userFoundedByEmail);
+                        isFound = true;
+                        break;
+                    }
+                }
+                if (isFound) {
+                    UserAdapter userAdapter = new UserAdapter(users, new UserListener() {
+                        @Override
+                        public void onUserClicked(User user) {
+                            Intent intent = new Intent(getApplicationContext(), ChatActivity.class);
+                            intent.putExtra(Constants.KEY_USER, userFoundedByEmail);
+                            startActivity(intent);
+                            finish();
+                        }
+                    });
+                    binding.usersRecyclerView.setAdapter(userAdapter);
+                    binding.usersRecyclerView.setVisibility(View.VISIBLE);
+                } else {
+                    Toast.makeText(UsersActivity.this, "Not Found", Toast.LENGTH_SHORT).show();
+                }
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                if (newText.equals("")) {
+                    getUsers();
+                }
+                return false;
+            }
+        });
     }
 
     private void setListeners() {
@@ -44,7 +93,7 @@ public class UsersActivity extends BaseActivity implements UserListener {
                     loading(false);
                     String currentUserId = preferenceManager.getString(Constants.KEY_USER_ID);
                     if (task.isSuccessful() && task.getResult() != null) {
-                        List<User> users = new ArrayList<>();
+                        users = new ArrayList<>();
                         for (QueryDocumentSnapshot queryDocumentSnapshot : task.getResult()) {
                             if (currentUserId.equals(queryDocumentSnapshot.getId())) {
                                 continue;
