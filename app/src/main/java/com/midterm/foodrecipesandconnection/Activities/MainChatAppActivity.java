@@ -61,7 +61,7 @@ public class MainChatAppActivity extends BaseActivity implements ConversionListe
 
     public void ConfirmLogout() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage("Are you sure want to Logout?")
+        builder.setMessage("Do You Want to Log-out?")
                 .setCancelable(false)
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
