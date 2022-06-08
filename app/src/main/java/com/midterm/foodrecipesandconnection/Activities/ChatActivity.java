@@ -1,5 +1,6 @@
 package com.midterm.foodrecipesandconnection.Activities;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -49,6 +50,12 @@ public class ChatActivity extends BaseActivity {
         loadReceiverDetails();
         init();
         listenMessage();
+        binding.imageInfo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(ChatActivity.this, UserInfoActivity.class).putExtra(Constants.KEY_USER, receiverUser));
+            }
+        });
     }
 
     private void init() {
